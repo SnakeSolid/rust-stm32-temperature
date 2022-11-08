@@ -1,0 +1,25 @@
+[package]
+name = "stm32-bme280-temperature"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [ "bme280" ]
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+panic = "unwind"
+codegen-units = 1
+
+[dependencies]
+bme280 = { path = "bme280" }
+cortex-m = "0.7"
+cortex-m-rt = "0.6"
+cortex-m-rtic = "1.1"
+nb = "1.0"
+
+[dependencies.stm32g0xx-hal]
+version = "0.1"
+features = [ "rt", "stm32g030" ]
