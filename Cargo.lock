@@ -57,7 +57,7 @@ checksum = "46afbd2983a5d5a7bd740ccb198caf5b82f45c40c09c0eed36052d91cb92e719"
 name = "bme280"
 version = "0.1.0"
 dependencies = [
- "cortex-m",
+ "embedded-hal",
 ]
 
 [[package]]

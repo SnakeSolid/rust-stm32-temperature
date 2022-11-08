@@ -1,5 +1,5 @@
-// #![deny(warnings)]
 #![deny(unsafe_code)]
+#![deny(warnings)]
 #![no_main]
 #![no_std]
 
@@ -14,7 +14,7 @@ use bme280::TemperatureExt;
 use core::fmt::Write;
 use core::panic::PanicInfo;
 use cortex_m::asm::wfi;
-use cortex_m::prelude::_embedded_hal_timer_CountDown;
+use cortex_m::prelude::*;
 use cortex_m_rtic_macros::app;
 use stm32g0xx_hal::gpio::gpioa::PA11;
 use stm32g0xx_hal::gpio::gpioa::PA12;
@@ -36,6 +36,7 @@ use stm32g0xx_hal::stm32::I2C2;
 use stm32g0xx_hal::stm32::TIM17;
 use stm32g0xx_hal::stm32::USART2;
 use stm32g0xx_hal::time::U32Ext;
+use stm32g0xx_hal::timer::delay::DelayExt;
 use stm32g0xx_hal::timer::Timer;
 use stm32g0xx_hal::timer::TimerExt;
 
@@ -73,7 +74,7 @@ mod app {
         let rx = gpioa.pa3;
         let sda = gpioa.pa12.into_open_drain_output_in_state(PinState::High);
         let scl = gpioa.pa11.into_open_drain_output_in_state(PinState::High);
-        let (usart_tx, _usart_rx) = context
+        let (mut usart_tx, _usart_rx) = context
             .device
             .USART2
             .usart(
@@ -102,9 +103,14 @@ mod app {
             )
             .expect("Failed to set sampling for BME280 sensor");
 
-        let mut timer = context.device.TIM17.timer(&mut rcc);
-        timer.start(1.hz());
+        let mut delay = context.device.TIM17.delay(&mut rcc);
+        delay.delay(100.ms()); // Wait for BME280 first measurement.
+
+        let mut timer = delay.release().timer(&mut rcc);
+        timer.start(60.seconds());
         timer.listen();
+
+        let _ = writeln!(usart_tx, "Ready.\r");
 
         (
             Shared {},
@@ -128,13 +134,13 @@ mod app {
                 .bme280
                 .temperature(context.local.i2c)
                 .expect("Failed to read temperature")
-                .C();
+                .c();
             let pressure = context
                 .local
                 .bme280
                 .pressure(context.local.i2c)
                 .expect("Failed to read pressure")
-                .mmHg();
+                .mmhg();
             let humidity = context
                 .local
                 .bme280
@@ -143,7 +149,7 @@ mod app {
                 .percent();
             let _ = writeln!(
                 context.local.usart_tx,
-                "T: {}:{:02}°C, P: {}.{:01} mmHg, H: {}.{:03}%",
+                "T: {}.{:02}°C, P: {}.{:01} mmHg, H: {}.{:03}%\r",
                 temperature.0, temperature.1, pressure.0, pressure.1, humidity.0, humidity.1,
             );
             let _ = context.local.led.set_high();

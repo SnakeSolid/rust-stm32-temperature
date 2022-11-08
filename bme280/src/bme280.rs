@@ -1,5 +1,5 @@
-use cortex_m::prelude::_embedded_hal_blocking_i2c_Write as Write;
-use cortex_m::prelude::_embedded_hal_blocking_i2c_WriteRead as WriteRead;
+use embedded_hal::blocking::i2c::Write;
+use embedded_hal::blocking::i2c::WriteRead;
 
 const BME280_ADDRESS_LOW: u8 = 0x76;
 const BME280_ADDRESS_HIGH: u8 = 0x77;
