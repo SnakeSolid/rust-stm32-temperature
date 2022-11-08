@@ -408,6 +408,7 @@ dependencies = [
  "cortex-m",
  "cortex-m-rt",
  "cortex-m-rtic",
+ "cortex-m-rtic-macros",
  "nb 1.0.0",
  "stm32g0xx-hal",
 ]

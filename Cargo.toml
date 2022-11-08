@@ -17,9 +17,15 @@ codegen-units = 1
 bme280 = { path = "bme280" }
 cortex-m = "0.7"
 cortex-m-rt = "0.6"
-cortex-m-rtic = "1.1"
+cortex-m-rtic-macros = "1.1"
 nb = "1.0"
 
 [dependencies.stm32g0xx-hal]
 version = "0.1"
+default-features = false
 features = [ "rt", "stm32g030" ]
+
+[dependencies.cortex-m-rtic]
+version = "1.1"
+default-features = false
+features = [  ]
