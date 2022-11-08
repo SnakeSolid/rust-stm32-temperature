@@ -149,7 +149,7 @@ mod app {
                 .percent();
             let _ = writeln!(
                 context.local.usart_tx,
-                "T: {}.{:02}°C, P: {}.{:01} mmHg, H: {}.{:03}%\r",
+                "T: {}.{:02} C, P: {}.{:01} mmHg, H: {}.{:03}%\r",
                 temperature.0, temperature.1, pressure.0, pressure.1, humidity.0, humidity.1,
             );
             let _ = context.local.led.set_high();
