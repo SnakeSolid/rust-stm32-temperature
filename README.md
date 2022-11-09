@@ -4,9 +4,9 @@ Read temperature, humidity and pressure from BME280 and write measurements to Bl
 example:
 
 ```
-T: 23:87°C, P: 749.6 mmHg, H: 35.844%
-T: 24:76°C, P: 749.6 mmHg, H: 34.101%
-T: 24.70°C, P: 749.7 mmHg, H: 33.334%
+T: 23:87 C, P: 749.6 mmHg, H: 35.844%
+T: 24:76 C, P: 749.6 mmHg, H: 34.101%
+T: 24.70 C, P: 749.7 mmHg, H: 33.334%
 ```
 
 Rows are separated with `\r\n` new line sequence.
