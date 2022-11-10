@@ -9,7 +9,9 @@ T: 24:76 C, P: 749.6 mmHg, H: 34.101%
 T: 24.70 C, P: 749.7 mmHg, H: 33.334%
 ```
 
-Rows are separated with `\r\n` new line sequence.
+Note: output rows are separated with `\n` new line sequence.
+
+![Bluetooth sensor](../images/sensor.jpg "Bluetooth sensor")
 
 ### Wiring Diagram
 
