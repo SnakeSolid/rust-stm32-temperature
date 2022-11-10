@@ -11,7 +11,7 @@ T: 24.70 C, P: 749.7 mmHg, H: 33.334%
 
 Note: output rows are separated with `\n` new line sequence.
 
-![Bluetooth sensor](../images/sensor.jpg "Bluetooth sensor")
+![Bluetooth sensor](images/sensor.jpg "Bluetooth sensor")
 
 ### Wiring Diagram
 
